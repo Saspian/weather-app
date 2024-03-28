@@ -1,6 +1,6 @@
 # Weather App
 
-This is simple responsive web app which tells you a current weather condition, hourly forecasts and upto 10 days of weather forecasting. Inorder to see this information user has to agree to share there current location. The weather information is fetched from a free API from [weatherapi.com](https://www.weatherapi.com/).
+This is a simple responsive web app which tells you the current weather condition, hourly forecasts and upto 10 days of weather forecasting. In order to see the information user has to agree to share there current location. The weather information is fetched from a free API from [weatherapi.com](https://www.weatherapi.com/).
 
 The project is made using React framework with Vite. For the styling I've used Tailwind CSS and Material-UI as a component library.
 
@@ -26,4 +26,4 @@ Node and NPM versions used at the time of development `node v16.16.0` and `npm 8
 
 ### Run `npm run dev`
 
-This will run the app in `http://localhost:5173/` url. Simply paste this url or right click on the link appear on the console.
+This will run the app in `http://localhost:5173/`. Simply paste this url or right click on the link appear on the console.
