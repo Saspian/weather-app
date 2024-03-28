@@ -1,0 +1,27 @@
+.card-container {
+  margin: 2rem;
+}
+
+.custom-card {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
+.scroll-window {
+  display: flex;
+}
+
+.hourly-card {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+  width: 100px;
+}
+.daily-card {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+  width: 128px;
+}
+
+::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
+}
