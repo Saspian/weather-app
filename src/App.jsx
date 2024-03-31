@@ -23,12 +23,21 @@ import {
 import TomorrowBox from "./components/TomorrowBox";
 import ForecastBox from "./components/ForecastBox";
 import MainBox from "./components/MainBox";
+import ForecastChartHourly from "./components/ForecastChartHourly";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import ShowChartIcon from "@mui/icons-material/ShowChart";
+import { blue, red } from "@mui/material/colors";
+import ForecastChartDaily from "./components/ForecastChartDaily";
 
 function App() {
   const [weatherData, setWeatherData] = useState({});
   const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tempUnit, setTempUnit] = useState("C");
+  const [viewChart, toggleChart] = useState("line");
+  const [dailyChartView, setDailyChartView] = useState("box");
 
   useEffect(() => {
     getWeatherInfo();
@@ -64,6 +73,12 @@ function App() {
   };
   const handleUnitChange = (event, unit) => {
     setTempUnit(unit);
+  };
+  const handleChangeView = (event, view) => {
+    toggleChart(view);
+  };
+  const handleDailyView = (event, view) => {
+    setDailyChartView(view);
   };
 
   return (
@@ -142,66 +157,168 @@ function App() {
             <TomorrowBox data={weatherData.forecast.forecastday[0]} />
             {/* Hourly Forescast */}
             <div className="col-span-5 overflow-x-auto">
-              <Typography variant="h5" color="white">
-                <span className="font-bold">Hourly Forecast</span>
-              </Typography>
+              <div className="flex justify-between">
+                <Typography variant="h5" color="white">
+                  <span className="font-bold">Hourly Forecast</span>
+                </Typography>
+                <ToggleButtonGroup
+                  value={viewChart}
+                  exclusive
+                  onChange={handleChangeView}
+                  size="small"
+                  color="primary"
+                  sx={{
+                    background: blue[500],
+                    "&.Mui-active": {
+                      background: red[500],
+                    },
+                    "&.Mui-selected": {
+                      background: red[500],
+                    },
+                  }}
+                >
+                  <ToggleButton
+                    sx={{
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    }}
+                    value="line"
+                    aria-label="Line"
+                  >
+                    <span style={{ color: "white" }}>
+                      <ShowChartIcon fontSize="small" />
+                    </span>
+                  </ToggleButton>
+                  <ToggleButton
+                    sx={{
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    }}
+                    value="box"
+                    aria-label="Box"
+                  >
+                    <span style={{ color: "white" }}>
+                      <BarChartIcon fontSize="small" />
+                    </span>
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              </div>
+
               <div className="col-span-5 overflow-x-auto">
-                <div className="flex gap-4 overflow-auto w-fit md:mt-2 mt-5">
-                  {weatherData.forecast.forecastday[0].hour.map(
-                    (data, index) => (
-                      <ForecastBox
-                        key={index}
-                        header={
-                          roundOffHours() == data.time.split(" ")[1]
-                            ? "NOW"
-                            : data.time.split(" ")[1]
-                        }
-                        weatherIcon={data.condition.icon.replace(
-                          "64x64",
-                          "128x128"
-                        )}
-                        weatherText={data.condition.text}
-                        temp={
-                          tempUnit === "F"
-                            ? Math.round(data.temp_f) + " °F"
-                            : Math.round(data.temp_c) + " °C"
-                        }
-                        customCss="hourly-card h-72"
-                      />
-                    )
-                  )}
-                </div>
+                {viewChart === "line" ? (
+                  <ForecastChartHourly
+                    data={weatherData.forecast.forecastday[0].hour}
+                    tempUnit={tempUnit}
+                  />
+                ) : (
+                  <div className="flex gap-4 overflow-auto w-fit md:mt-2 mt-5">
+                    {weatherData.forecast.forecastday[0].hour.map(
+                      (data, index) => (
+                        <ForecastBox
+                          key={index}
+                          header={
+                            roundOffHours() == data.time.split(" ")[1]
+                              ? "NOW"
+                              : data.time.split(" ")[1]
+                          }
+                          weatherIcon={data.condition.icon.replace(
+                            "64x64",
+                            "128x128"
+                          )}
+                          weatherText={data.condition.text}
+                          temp={
+                            tempUnit === "F"
+                              ? Math.round(data.temp_f) + " °F"
+                              : Math.round(data.temp_c) + " °C"
+                          }
+                          customCss="hourly-card h-72"
+                        />
+                      )
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
           <div className="grid md:grid-cols gap-4 mb-4">
             <div className="overflow-x-auto">
-              <Typography variant="h5" color="white">
-                <span className="font-bold">10 Days Weather Forecast</span>
-              </Typography>
+              <div className="flex justify-between">
+                <Typography variant="h5" color="white">
+                  <span className="font-bold">10 Days Weather Forecast</span>
+                </Typography>
+                <ToggleButtonGroup
+                  value={dailyChartView}
+                  exclusive
+                  onChange={handleDailyView}
+                  size="small"
+                  color="primary"
+                  sx={{
+                    background: blue[500],
+                    "&.Mui-active": {
+                      background: red[500],
+                    },
+                    "&.Mui-selected": {
+                      background: red[500],
+                    },
+                  }}
+                >
+                  <ToggleButton
+                    sx={{
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    }}
+                    value="line"
+                    aria-label="Line"
+                  >
+                    <span style={{ color: "white" }}>
+                      <ShowChartIcon fontSize="small" />
+                    </span>
+                  </ToggleButton>
+                  <ToggleButton
+                    sx={{
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                    }}
+                    value="box"
+                    aria-label="Box"
+                  >
+                    <span style={{ color: "white" }}>
+                      <BarChartIcon fontSize="small" />
+                    </span>
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              </div>
+
               <div className="overflow-x-auto">
-                <div className="flex gap-4 overflow-auto w-fit md:mt-2 mt-5">
-                  {weatherData.forecast.forecastday.map((data, index) => (
-                    <ForecastBox
-                      key={index}
-                      header={
-                        isToday(data.date)
-                          ? "Today"
-                          : isTomorrow(data.date)
-                          ? "Tomorrow"
-                          : getDayOfWeek(data.date)
-                      }
-                      subHeader={getCurrentDate(data.date)}
-                      weatherIcon={data.day.condition.icon.replace(
-                        "64x64",
-                        "128x128"
-                      )}
-                      weatherText={data.day.condition.text}
-                      temp={getHighLowTemp(data.day, tempUnit)}
-                      customCss="daily-card h-56"
-                    />
-                  ))}
-                </div>
+                {dailyChartView === "line" ? (
+                  <ForecastChartDaily
+                    data={weatherData.forecast.forecastday}
+                    tempUnit={tempUnit}
+                  />
+                ) : (
+                  <div className="flex gap-4 overflow-auto w-fit md:mt-2 mt-5">
+                    {weatherData.forecast.forecastday.map((data, index) => (
+                      <ForecastBox
+                        key={index}
+                        header={
+                          isToday(data.date)
+                            ? "Today"
+                            : isTomorrow(data.date)
+                            ? "Tomorrow"
+                            : getDayOfWeek(data.date)
+                        }
+                        subHeader={getCurrentDate(data.date)}
+                        weatherIcon={data.day.condition.icon.replace(
+                          "64x64",
+                          "128x128"
+                        )}
+                        weatherText={data.day.condition.text}
+                        temp={getHighLowTemp(data.day, tempUnit)}
+                        customCss="daily-card h-56"
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>

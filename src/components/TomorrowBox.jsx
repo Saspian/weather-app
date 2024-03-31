@@ -9,7 +9,7 @@ function TomorrowBox({ data }) {
       <Typography variant="h5" color="white" className="pb-2">
         <span className="font-bold">Tomorrow</span>
       </Typography>
-      <Card className="custom-card sm:min-w-0 min-w-56" elevation={2}>
+      <Card className="custom-card sm:min-w-0 min-w-56 min-h-72" elevation={2}>
         <CardContent className="flex flex-col justify-between h-full">
           <Typography className="pb-4" variant="body2" color="white">
             <div className="flex items-center">

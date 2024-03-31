@@ -27,3 +27,12 @@ Node and NPM versions used at the time of development `node v16.16.0` and `npm 8
 ### Run `npm run dev`
 
 This will run the app in `http://localhost:5173/`. Simply paste this url or right click on the link appear on the console.
+
+### Snapshots
+
+![screenshot1](https://raw.githubusercontent.com/Saspian/weather-app/main/src/assets/1.png)
+![screenshot2](https://raw.githubusercontent.com/Saspian/weather-app/main/src/assets/2.png)
+![screenshot3](https://raw.githubusercontent.com/Saspian/weather-app/main/src/assets/3.png)
+![screenshot4](https://raw.githubusercontent.com/Saspian/weather-app/main/src/assets/4.png)
+![screenshot5](https://raw.githubusercontent.com/Saspian/weather-app/main/src/assets/5.png)
+![screenshot6](https://raw.githubusercontent.com/Saspian/weather-app/main/src/assets/6.png)
