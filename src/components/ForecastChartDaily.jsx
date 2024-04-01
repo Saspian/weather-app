@@ -48,19 +48,6 @@ function ForecastChartDaily({ data, tempUnit }) {
     });
   }
 
-  function forecastCount(targetHour) {
-    const now = new Date();
-    const target = new Date();
-    target.setHours(targetHour, 0, 0, 0);
-    let diff = target - now;
-    if (diff < 0) {
-      target.setDate(target.getDate() + 1);
-      diff = target - now;
-    }
-    const hoursLeft = Math.floor(diff / (1000 * 60 * 60));
-    return hoursLeft + 1;
-  }
-
   const state = {
     series: [
       {
@@ -83,9 +70,6 @@ function ForecastChartDaily({ data, tempUnit }) {
       tooltip: {
         enabled: true,
         theme: "dark",
-      },
-      forecastDataPoints: {
-        count: forecastCount(23),
       },
       stroke: {
         width: 5,
